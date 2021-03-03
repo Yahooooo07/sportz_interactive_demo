@@ -5,10 +5,8 @@ import { Image } from "semantic-ui-react";
 
 const useStyles = makeStyles(() => ({
   main: {
-    display: "flex",
     boxShadow: "0px 10px 20px #c8cbcc",
     zIndex: "2",
-    margin: "5px",
   },
   card: {
     flexWrap: "wrap",
@@ -16,6 +14,11 @@ const useStyles = makeStyles(() => ({
   },
   playerImage: {
     width: "100%",
+  },
+  mainFont: {
+    fontWeight: "bold",
+    margin: 10,
+    fontSize: 12,
   },
 }));
 
@@ -47,6 +50,7 @@ const PlayerListingGrid = ({
   });
 
   var date = matchTime + " UTC";
+  var fixture = homeTeam + " vs. " + awayTeam;
   return (
     <Card className={classes.main}>
       <div>
@@ -54,21 +58,23 @@ const PlayerListingGrid = ({
           {playerId && (
             <Image src={img.img.default} className={classes.playerImage} />
           )}
-          <Typography style={{ fontWeight: "bold", margin: 10, fontSize: 12 }}>
+          <Typography className={classes.mainFont}>
             Name : {playerName}
           </Typography>
-          <Typography style={{ fontWeight: "bold", margin: 10, fontSize: 12 }}>
+          <Typography className={classes.mainFont}>
             Position : {skill}
           </Typography>
-          <Typography style={{ fontWeight: "bold", margin: 10, fontSize: 12 }}>
+          <Typography className={classes.mainFont}>
             Value : {formatter.format(value)}
           </Typography>
-          <Typography style={{ fontWeight: "bold", margin: 10, fontSize: 12 }}>
-            Upcoming Match : {homeTeam} vs. {awayTeam}
+          <Typography className={classes.mainFont}>
+            Upcoming Match : {homeTeam === "" ? "Not Available" : fixture}
           </Typography>
-          <Typography style={{ fontWeight: "bold", margin: 10, fontSize: 12 }}>
+          <Typography className={classes.mainFont}>
             Upcoming Match Time: <br />
-            {new Date(date).toLocaleString()}
+            {date === " UTC"
+              ? "Not Available"
+              : new Date(date).toLocaleString()}
           </Typography>
         </Card>
       </div>
